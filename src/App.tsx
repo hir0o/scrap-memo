@@ -18,6 +18,11 @@ const App: FC = () => {
 
   const title = selectedCollection?.title ?? "コレクション";
 
+  const handleClick = useCallback(() => {
+    const url = location.href;
+    console.log(url);
+  }, []);
+
   return (
     <div className="bg-bg p-2 flex flex-col gap-3">
       <Header title={title}>
@@ -40,7 +45,7 @@ const App: FC = () => {
                 + 新しいコレクションを追加する
               </button>
             ) : (
-              <button className="text-blue-300 underline">
+              <button className="text-blue-300 underline" onClick={handleClick}>
                 + 現在のページを保存する
               </button>
             )}
