@@ -7,6 +7,8 @@ type Props = {
 };
 
 export const FolderList: FC<Props> = ({ collections, onSelect }) => {
+  console.log("aa");
+
   return (
     <div className="flex flex-col pb-4">
       {collections.map((item) => (
