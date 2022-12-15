@@ -6,6 +6,7 @@ import { FolderItem } from "./FolderItem";
 type Props = {
   collections: Collection[];
 };
+
 export const FolderList: FC<Props> = ({ collections }) => {
   const { setPage } = usePageUpdate();
 
@@ -13,9 +14,7 @@ export const FolderList: FC<Props> = ({ collections }) => {
     (id: string) => () => {
       setPage({
         page: "scrap",
-        params: {
-          id,
-        },
+        id,
       });
     },
     []

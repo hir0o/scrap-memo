@@ -14,9 +14,7 @@ type TopPage = {
 
 type ScrapPage = {
   page: "scrap";
-  params: {
-    id: string;
-  };
+  id: string;
 };
 
 type PageState = TopPage | ScrapPage;

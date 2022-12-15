@@ -9,7 +9,11 @@ export const Top: FC = () => {
   const { collections } = useCollection();
 
   return (
-    <Layout header={<Header title="コレクション" />}>
+    <Layout
+      header={
+        <Header onClick={() => {}} buttonText="新規作成" title="コレクション" />
+      }
+    >
       <FolderList collections={collections} />
     </Layout>
   );
