@@ -1,0 +1,29 @@
+import { FC } from "react";
+import { Collection } from "../../useCollection";
+
+type Props = {
+  collection: Collection;
+  onClick: () => void;
+};
+
+const getCount = (item: Collection["items"]) => {
+  return Object.keys(item).length;
+};
+
+export const FolderItem: FC<Props> = ({ collection, onClick }) => {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="bg-bg2 text-left hover:shadow-lg p-2 flex gap-2 rounded h-[100px]"
+    >
+      <div className="h-full w-[100px]" />
+      <div>
+        <h1 className="text-white font-bold">{collection.title}</h1>
+        <p className="text-gray-400 text-sm">
+          {getCount(collection.items)}個の項目
+        </p>
+      </div>
+    </button>
+  );
+};

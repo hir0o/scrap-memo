@@ -8,9 +8,20 @@ import {
 } from "react";
 import { Page } from "./Page";
 
-type Page = "top" | "scrap";
+type TopPage = {
+  page: "top";
+};
 
-const PageContext = createContext<{ page: Page }>({
+type ScrapPage = {
+  page: "scrap";
+  params: {
+    id: string;
+  };
+};
+
+type PageState = TopPage | ScrapPage;
+
+const PageContext = createContext<PageState>({
   page: "top",
 });
 
@@ -19,22 +30,24 @@ export const usePage = () => {
 };
 
 const PageUpdateContext = createContext<{
-  setPage: Dispatch<SetStateAction<Page>>;
-} | null>(null);
+  setPage: Dispatch<SetStateAction<PageState>>;
+}>(
+  {} as {
+    setPage: Dispatch<SetStateAction<PageState>>;
+  }
+);
 
 export const usePageUpdate = () => {
   return useContext(PageUpdateContext);
 };
 
 export const Router: FC = () => {
-  const [page, setPage] = useState<Page>("top");
+  const [page, setPage] = useState<PageState>({
+    page: "top",
+  });
 
   return (
-    <PageContext.Provider
-      value={{
-        page,
-      }}
-    >
+    <PageContext.Provider value={page}>
       <PageUpdateContext.Provider
         value={{
           setPage,
