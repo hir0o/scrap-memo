@@ -13,6 +13,7 @@ import { v4 as uuidv4 } from "uuid";
 type CollectionItemUrl = {
   type: "url";
   url: string;
+  title: string;
 };
 
 type CollectionItemText = {
@@ -40,6 +41,7 @@ const tmpCollections: Collection = {
       [uuidv4()]: {
         type: "url",
         url: "https://svelte.dev/",
+        title: "スベルト",
       },
       [uuidv4()]: {
         type: "text",
@@ -48,6 +50,7 @@ const tmpCollections: Collection = {
       [uuidv4()]: {
         type: "url",
         url: "https://svelte.dev/tutorial/basics",
+        title: "滑るとチュート",
       },
     },
   },

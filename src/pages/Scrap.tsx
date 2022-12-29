@@ -8,6 +8,16 @@ import {
 import { Layout } from "./Layout";
 import { CollectionDetail } from "../components/CollectiponDetail";
 
+const getPageTitle = (url: string): Promise<string> => {
+  return fetch(url)
+    .then((res) => res.text())
+    .then((text) => {
+      const dom = new DOMParser().parseFromString(text, "text/html");
+      const title = dom.head.querySelector("title")?.text.trim() || "untitled";
+      return title;
+    });
+};
+
 export const Scrap: FC = () => {
   const pageState = usePage();
   const update = useContext(CollectionUpdateContext);
@@ -19,10 +29,18 @@ export const Scrap: FC = () => {
 
   const scrap = collection[id];
 
-  const handleClick = useCallback(() => {
+  const handleClick = useCallback(async () => {
+    const [tab] = await chrome.tabs.query({
+      active: true,
+      lastFocusedWindow: true,
+    });
+
+    if (tab.url === undefined || tab.title === undefined) return;
+
     update?.addCollectionItem(id, {
-      type: "text",
-      text: "テスト！！！",
+      type: "url",
+      url: tab.url,
+      title: tab.title,
     });
   }, []);
 

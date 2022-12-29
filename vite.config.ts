@@ -2,9 +2,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { crx } from "@crxjs/vite-plugin";
 // Node 14 & 16
-import manifest from './manifest.json'
-// Node >=17
-import manifest from './manifest.json' assert { type: 'json' } 
+import manifest from "./manifest.json";
 
 export default defineConfig({
   plugins: [react(), crx({ manifest })],

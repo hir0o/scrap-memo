@@ -15,7 +15,8 @@ export const CollectionDetail: FC<Props> = ({ items }) => {
               <p className="text-white">{value.text}</p>
             ) : (
               <a className="text-white" target="_blank" href={value.url}>
-                {value.url}
+                <p>{value.url}</p>
+                <p>{value.title}</p>
               </a>
             )}
           </div>
