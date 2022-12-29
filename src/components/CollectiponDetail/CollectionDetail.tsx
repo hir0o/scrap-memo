@@ -2,14 +2,14 @@ import { FC } from "react";
 import { Collection } from "../../useCollection";
 
 type Props = {
-  collection: Collection;
+  items: Collection[string]["items"];
 };
 
-export const CollectionDetail: FC<Props> = ({ collection }) => {
+export const CollectionDetail: FC<Props> = ({ items }) => {
   return (
     <div>
       <div className="flex flex-col gap-3">
-        {Object.entries(collection.items).map(([key, value]) => (
+        {Object.entries(items).map(([key, value]) => (
           <div key={key} className="bg-bg2 p-2 rounded">
             {value.type === "text" ? (
               <p className="text-white">{value.text}</p>

@@ -26,7 +26,7 @@ export const Header: FC<Props> = ({ title, onClick, buttonText }) => {
           <h1 className="text-white font-bold flex align-middle gap-2">
             {!isTopPage && (
               <button onClick={onClickBackButton}>
-                <Arrow size={18} />
+                <Arrow size={16} />
               </button>
             )}
             {title}

@@ -1,14 +1,11 @@
-import { FC, useCallback } from "react";
-import { Collection } from "../../useCollection";
+import { FC, useCallback, useContext } from "react";
+import { Collection, CollectionStateContext } from "../../useCollection";
 import { usePageUpdate } from "../Router/Router";
 import { FolderItem } from "./FolderItem";
 
-type Props = {
-  collections: Collection[];
-};
-
-export const FolderList: FC<Props> = ({ collections }) => {
+export const FolderList: FC = () => {
   const { setPage } = usePageUpdate();
+  const collections = useContext(CollectionStateContext);
 
   const handleClick = useCallback(
     (id: string) => () => {
@@ -22,8 +19,8 @@ export const FolderList: FC<Props> = ({ collections }) => {
 
   return (
     <div className="flex flex-col pb-4">
-      {collections.map((item) => (
-        <FolderItem collection={item} onClick={handleClick(item.id)} />
+      {Object.entries(collections).map(([key, value]) => (
+        <FolderItem collection={value} onClick={handleClick(key)} />
       ))}
     </div>
   );

@@ -1,12 +1,12 @@
 import { FC } from "react";
-import { Collection } from "../../useCollection";
+import { Collection, CollectionItem } from "../../useCollection";
 
 type Props = {
-  collection: Collection;
+  collection: Collection[string];
   onClick: () => void;
 };
 
-const getCount = (item: Collection["items"]) => {
+const getCount = (item: CollectionItem) => {
   return Object.keys(item).length;
 };
 
