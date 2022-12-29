@@ -14,9 +14,15 @@ export const CollectionDetail: FC<Props> = ({ items }) => {
             {value.type === "text" ? (
               <p className="text-white">{value.text}</p>
             ) : (
-              <a className="text-white" target="_blank" href={value.url}>
-                <p>{value.url}</p>
-                <p>{value.title}</p>
+              <a className="text-white" target="_blank" href={value.page.url}>
+                <p>{value.page.title}</p>
+                <p>{value.page.url}</p>
+                {value.page.ogImageUrl !== undefined && (
+                  <img src={value.page.ogImageUrl} alt="" />
+                )}
+                {value.page.favicon !== undefined && (
+                  <img src={value.page.favicon} alt="" />
+                )}
               </a>
             )}
           </div>

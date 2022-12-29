@@ -10,10 +10,16 @@ import {
 } from "react";
 import { v4 as uuidv4 } from "uuid";
 
-type CollectionItemUrl = {
-  type: "url";
+type PageInfo = {
   url: string;
   title: string;
+  favicon: string | undefined;
+  ogImageUrl: string | undefined;
+};
+
+type CollectionItemUrl = {
+  type: "url";
+  page: PageInfo;
 };
 
 type CollectionItemText = {

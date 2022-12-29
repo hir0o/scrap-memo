@@ -8,13 +8,14 @@ import {
 import { Layout } from "./Layout";
 import { CollectionDetail } from "../components/CollectiponDetail";
 
-const getPageTitle = (url: string): Promise<string> => {
+const getOgImageUrl = (url: string): Promise<string | undefined> => {
   return fetch(url)
     .then((res) => res.text())
     .then((text) => {
       const dom = new DOMParser().parseFromString(text, "text/html");
-      const title = dom.head.querySelector("title")?.text.trim() || "untitled";
-      return title;
+      const ogImg = dom.querySelector("meta[property='og:image']");
+
+      return ogImg?.getAttribute("content") || undefined;
     });
 };
 
@@ -37,10 +38,25 @@ export const Scrap: FC = () => {
 
     if (tab.url === undefined || tab.title === undefined) return;
 
+    const ogImageUrl = await getOgImageUrl(tab.url);
+
+    const page = {
+      title: tab.title,
+      url: tab.url,
+      favicon: tab.favIconUrl,
+      ogImageUrl: ogImageUrl,
+    };
+
+    console.log(page);
+
     update?.addCollectionItem(id, {
       type: "url",
-      url: tab.url,
-      title: tab.title,
+      page: {
+        title: tab.title,
+        url: tab.url,
+        favicon: tab.favIconUrl,
+        ogImageUrl: ogImageUrl,
+      },
     });
   }, []);
 
