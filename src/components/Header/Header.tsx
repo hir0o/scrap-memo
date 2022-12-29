@@ -1,4 +1,5 @@
 import { FC, ReactNode } from "react";
+import { Arrow } from "../Icons";
 import { usePage, usePageUpdate } from "../Router/Router";
 
 type Props = {
@@ -22,8 +23,12 @@ export const Header: FC<Props> = ({ title, onClick, buttonText }) => {
     <header className="flex flex-col justify-center items-start gap-3">
       <div>
         <div className="flex ">
-          <h1 className="text-white font-bold">
-            {!isTopPage && <button onClick={onClickBackButton}>{"<"}</button>}
+          <h1 className="text-white font-bold flex align-middle gap-2">
+            {!isTopPage && (
+              <button onClick={onClickBackButton}>
+                <Arrow size={18} />
+              </button>
+            )}
             {title}
           </h1>
         </div>
