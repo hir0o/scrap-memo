@@ -17,12 +17,12 @@ type PageInfo = {
   ogImageUrl: string | undefined;
 };
 
-type CollectionItemUrl = {
+export type CollectionItemUrl = {
   type: "url";
   page: PageInfo;
 };
 
-type CollectionItemText = {
+export type CollectionItemText = {
   type: "text";
   text: string;
 };

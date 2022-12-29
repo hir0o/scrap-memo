@@ -4,9 +4,11 @@ import { CollectionContextProvider } from "./useCollection";
 
 const App: FC = () => {
   return (
-    <CollectionContextProvider>
-      <Router />
-    </CollectionContextProvider>
+    <main className="w-[400px]">
+      <CollectionContextProvider>
+        <Router />
+      </CollectionContextProvider>
+    </main>
   );
 };
 

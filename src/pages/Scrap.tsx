@@ -38,11 +38,14 @@ export const Scrap: FC = () => {
 
     if (tab.url === undefined || tab.title === undefined) return;
 
+    // TODO: 正規表現でちゃんと抜き出した方がいいかも？
+    const newUrl = tab.url.split("/")[2];
+
     const ogImageUrl = await getOgImageUrl(tab.url);
 
     const page = {
       title: tab.title,
-      url: tab.url,
+      url: newUrl,
       favicon: tab.favIconUrl,
       ogImageUrl: ogImageUrl,
     };
@@ -51,12 +54,7 @@ export const Scrap: FC = () => {
 
     update?.addCollectionItem(id, {
       type: "url",
-      page: {
-        title: tab.title,
-        url: tab.url,
-        favicon: tab.favIconUrl,
-        ogImageUrl: ogImageUrl,
-      },
+      page,
     });
   }, []);
 
