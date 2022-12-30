@@ -50,8 +50,6 @@ export const Scrap: FC = () => {
       ogImageUrl: ogImageUrl,
     };
 
-    console.log(page);
-
     update?.addCollectionItem(id, {
       type: "url",
       page,

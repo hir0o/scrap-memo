@@ -1,12 +1,30 @@
-import { FC } from "react";
-import { Collection } from "../../useCollection";
+import { FC, useCallback, useContext } from "react";
+import { Collection, CollectionUpdateContext } from "../../useCollection";
+import { usePage } from "../Router/Router";
 import { CollectionListItem } from "./CollectionListItem";
+import { Textarea } from "./Textarea";
 
 type Props = {
   items: Collection[string]["items"];
 };
 
 export const CollectionDetail: FC<Props> = ({ items }) => {
+  const pageState = usePage();
+  if (pageState.page === "top") return null;
+
+  const id = pageState.id;
+
+  const update = useContext(CollectionUpdateContext);
+
+  const handleSubmit = useCallback((value: string) => {
+    update?.addCollectionItem(id, {
+      type: "text",
+      text: value,
+    });
+  }, []);
+
+  console.log({ items });
+
   return (
     <div>
       <div className="flex flex-col gap-3">
@@ -14,7 +32,7 @@ export const CollectionDetail: FC<Props> = ({ items }) => {
           <CollectionListItem key={key} item={value} />
         ))}
       </div>
-      <textarea name="" id="" cols={30}></textarea>
+      <Textarea onSubmit={handleSubmit} />
     </div>
   );
 };
