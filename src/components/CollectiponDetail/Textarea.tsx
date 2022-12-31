@@ -10,11 +10,12 @@ import TextareaAutosize from "react-textarea-autosize";
 
 type Props = {
   onSubmit: (value: string) => void;
+  initialValue?: string;
 };
 
 export const Textarea = forwardRef<HTMLTextAreaElement, Props>(
-  ({ onSubmit }, ref) => {
-    const [value, setValue] = useState("");
+  ({ onSubmit, initialValue = "" }, ref) => {
+    const [value, setValue] = useState(initialValue);
 
     const handleSubmit = useCallback(() => {
       onSubmit(value);
