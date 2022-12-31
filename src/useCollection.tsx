@@ -6,6 +6,7 @@ import {
   ReactNode,
   SetStateAction,
   useContext,
+  useEffect,
   useState,
 } from "react";
 import { v4 as uuidv4 } from "uuid";
@@ -45,24 +46,15 @@ const tmpCollections: Collection = {
     title: "Svelte",
     items: {
       [uuidv4()]: {
-        type: "url",
-        url: "https://svelte.dev/",
-        title: "スベルト",
-      },
-      [uuidv4()]: {
         type: "text",
         text: "Svelte is a radical new approach to building user interfaces.",
-      },
-      [uuidv4()]: {
-        type: "url",
-        url: "https://svelte.dev/tutorial/basics",
-        title: "滑るとチュート",
       },
     },
   },
 };
 
 export const useCollection = (
+  collections: Collection,
   setCollections: Dispatch<SetStateAction<Collection>>
 ) => {
   const addCollection = (collection: Collection[string]) => {
@@ -97,7 +89,31 @@ export const useCollection = (
     });
   };
 
-  return { addCollection, deleteCollection, addCollectionItem };
+  const updateCollectionItem = (
+    collectionId: string,
+    itemId: string,
+    item: CollectionItem[string]
+  ) => {
+    setCollections((prev) => {
+      return {
+        ...prev,
+        [collectionId]: {
+          ...prev[collectionId],
+          items: {
+            ...prev[collectionId].items,
+            [itemId]: item,
+          },
+        },
+      };
+    });
+  };
+
+  return {
+    addCollection,
+    deleteCollection,
+    addCollectionItem,
+    updateCollectionItem,
+  };
 };
 
 type CollectionContext = Collection;
@@ -108,11 +124,32 @@ type UpdateContext = ReturnType<typeof useCollection> | null;
 
 export const CollectionUpdateContext = createContext<UpdateContext>(null);
 
+let init = false;
 export const CollectionContextProvider: FC<{
   children: ReactNode;
 }> = ({ children }) => {
-  const [collections, setCollections] = useState<Collection>(tmpCollections);
-  const update = useCollection(setCollections);
+  const [collections, setCollections] = useState<Collection>({});
+  const update = useCollection(collections, setCollections);
+
+  if (!init) {
+    if (typeof chrome !== "undefined") {
+      chrome.storage.local.get(["collection"]).then((res) => {
+        console.log(res);
+
+        setCollections(res.collection);
+      });
+    }
+    init = true;
+  }
+
+  useEffect(() => {
+    if (typeof chrome === "undefined") return;
+    if (!init) return;
+
+    console.log("set", collections);
+
+    chrome.storage.local.set({ collection: collections });
+  }, [collections]);
 
   return (
     <CollectionStateContext.Provider value={collections}>

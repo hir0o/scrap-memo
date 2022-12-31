@@ -1,7 +1,6 @@
 import { FC } from "react";
 import { Scrap } from "../../pages/Scrap";
 import { Top } from "../../pages/Top";
-import { useCollection } from "../../useCollection";
 import { usePage } from "./Router";
 
 export const Page: FC = () => {
