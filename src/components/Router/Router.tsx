@@ -27,6 +27,13 @@ export const usePage = () => {
   return useContext(PageContext);
 };
 
+export const usePageId = () => {
+  const pageState = usePage();
+  if (pageState.page === "top") return "";
+
+  return pageState.id;
+};
+
 const PageUpdateContext = createContext<{
   setPage: Dispatch<SetStateAction<PageState>>;
 }>(

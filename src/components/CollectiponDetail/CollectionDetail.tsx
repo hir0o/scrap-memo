@@ -30,7 +30,7 @@ export const CollectionDetail: FC<Props> = ({ items }) => {
     <div className="flex flex-col gap-4">
       <div className="flex flex-col gap-3">
         {Object.entries(items).map(([key, value]) => (
-          <CollectionListItem key={key} item={value} />
+          <CollectionListItem key={key} id={key} item={value} />
         ))}
       </div>
       <CollectionTextArea onSubmit={handleSubmit} />

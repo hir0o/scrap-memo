@@ -15,7 +15,7 @@ export const FolderItem: FC<Props> = ({ collection, onClick }) => {
     <button
       type="button"
       onClick={onClick}
-      className="bg-bg2 text-left hover:shadow-lg p-2 flex gap-2 rounded h-[100px]"
+      className="bg-gray-700 text-left hover:shadow-lg p-2 flex gap-2 rounded h-[100px]"
     >
       <div className="h-full w-[100px]" />
       <div>
