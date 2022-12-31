@@ -2,9 +2,9 @@ import {
   ChangeEvent,
   FC,
   useCallback,
-  useEffect,
   useState,
   KeyboardEvent as ReactKeyboardEvent,
+  ComponentProps,
 } from "react";
 import TextareaAutosize from "react-textarea-autosize";
 
@@ -15,11 +15,15 @@ type Props = {
 export const Textarea: FC<Props> = ({ onSubmit }) => {
   const [value, setValue] = useState("");
 
+  const handleSubmit = useCallback(() => {
+    onSubmit(value);
+    setValue("");
+  }, [value]);
+
   const onKeyDown = useCallback(
     (e: ReactKeyboardEvent<HTMLTextAreaElement>) => {
       if (e.ctrlKey && e.key === "Enter") {
-        onSubmit(value);
-        setValue("");
+        handleSubmit();
       }
     },
     [value]
@@ -33,9 +37,10 @@ export const Textarea: FC<Props> = ({ onSubmit }) => {
     <TextareaAutosize
       onKeyDown={onKeyDown}
       onChange={onChange}
+      onBlur={handleSubmit}
       minRows={3}
       value={value}
-      className="w-full bg-gray-800 resize-none appearance-none focus:outline-none text-white p-2"
+      className="w-full bg-gray-700 resize-none appearance-none focus:outline-none text-white p-2"
     />
   );
 };

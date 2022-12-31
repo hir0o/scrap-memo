@@ -20,22 +20,20 @@ export const Header: FC<Props> = ({ title, onClick, buttonText }) => {
   };
 
   return (
-    <header className="flex flex-col justify-center items-start gap-3">
-      <div>
-        <div className="flex ">
-          <h1 className="text-white font-bold flex align-middle gap-2">
-            {!isTopPage && (
-              <button onClick={onClickBackButton}>
-                <Arrow size={16} />
-              </button>
-            )}
-            {title}
-          </h1>
-        </div>
-        <button className="text-blue-300 text-sm underline" onClick={onClick}>
-          {buttonText}
-        </button>
+    <header>
+      <div className="flex ">
+        <h1 className="text-white font-bold flex align-middle gap-2">
+          {!isTopPage && (
+            <button onClick={onClickBackButton}>
+              <Arrow size={16} />
+            </button>
+          )}
+          {title}
+        </h1>
       </div>
+      <button className="text-blue-300 text-sm underline" onClick={onClick}>
+        {buttonText}
+      </button>
     </header>
   );
 };

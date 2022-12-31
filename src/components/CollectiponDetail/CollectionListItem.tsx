@@ -9,7 +9,7 @@ type Props = {
 
 export const CollectionListItem: FC<Props> = ({ item }) => {
   return (
-    <div className="bg-bg2 p-2 rounded">
+    <div className="bg-gray-700 p-2 rounded">
       {item.type === "text" ? (
         <TextCard text={item.text} />
       ) : (

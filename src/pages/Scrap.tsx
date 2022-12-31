@@ -62,11 +62,10 @@ export const Scrap: FC = () => {
         <Header
           onClick={handleClick}
           buttonText="現在のページを追加"
-          title="コレクション名"
+          title={scrap.title}
         />
       }
     >
-      <h1>{scrap.title}</h1>
       <CollectionDetail items={scrap.items} />
     </Layout>
   );

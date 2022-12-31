@@ -2,6 +2,7 @@ import { FC, useCallback, useContext } from "react";
 import { Collection, CollectionUpdateContext } from "../../useCollection";
 import { usePage } from "../Router/Router";
 import { CollectionListItem } from "./CollectionListItem";
+import { CollectionTextArea } from "./CollectionTextArea";
 import { Textarea } from "./Textarea";
 
 type Props = {
@@ -23,16 +24,14 @@ export const CollectionDetail: FC<Props> = ({ items }) => {
     });
   }, []);
 
-  console.log({ items });
-
   return (
-    <div>
+    <div className="flex flex-col gap-4">
       <div className="flex flex-col gap-3">
         {Object.entries(items).map(([key, value]) => (
           <CollectionListItem key={key} item={value} />
         ))}
       </div>
-      <Textarea onSubmit={handleSubmit} />
+      <CollectionTextArea onSubmit={handleSubmit} />
     </div>
   );
 };
