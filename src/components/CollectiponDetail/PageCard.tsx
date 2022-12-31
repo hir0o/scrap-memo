@@ -20,9 +20,9 @@ export const PageCard: FC<Props> = ({ page }) => {
           <p>{page.url}</p>
         </div>
       </div>
-      <div className="flex place-items-center bg-slate-600">
+      <div className="flex place-items-center bg-slate-600 overflow-hidden">
         {page.ogImageUrl !== undefined && (
-          <img className="object-cover" src={page.ogImageUrl} alt="" />
+          <img className="object-fit" src={page.ogImageUrl} alt="" />
         )}
       </div>
     </a>

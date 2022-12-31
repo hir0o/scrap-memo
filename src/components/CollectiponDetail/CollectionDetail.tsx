@@ -18,6 +18,8 @@ export const CollectionDetail: FC<Props> = ({ items }) => {
   const update = useContext(CollectionUpdateContext);
 
   const handleSubmit = useCallback((value: string) => {
+    if (value === "") return;
+
     update?.addCollectionItem(id, {
       type: "text",
       text: value,
