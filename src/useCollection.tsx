@@ -18,15 +18,19 @@ type PageInfo = {
   ogImageUrl: string | undefined;
 };
 
+type Order = {
+  order: number
+}
+
 export type CollectionItemUrl = {
   type: "url";
   page: PageInfo;
-};
+} & Order
 
 export type CollectionItemText = {
   type: "text";
   text: string;
-};
+} & Order
 
 export type CollectionItem = Record<
   string,
@@ -48,6 +52,7 @@ const tmpCollections: Collection = {
       [uuidv4()]: {
         type: "text",
         text: "Svelte is a radical new approach to building user interfaces.",
+        order: 1,
       },
     },
   },
@@ -134,7 +139,6 @@ export const CollectionContextProvider: FC<{
   if (!init) {
     if (typeof chrome !== "undefined") {
       chrome.storage.local.get(["collection"]).then((res) => {
-        console.log(res);
 
         setCollections(res.collection);
       });
