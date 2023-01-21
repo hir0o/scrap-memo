@@ -3,6 +3,7 @@ import { useToggle } from "../../hooks/useToggle";
 import { replaceToHtml } from "../../lib/replacer";
 import {
   Collection,
+  CollectionItem,
   CollectionItemText,
   CollectionStateContext,
   CollectionUpdateContext,
@@ -29,7 +30,7 @@ export const TextCard: FC<Props> = ({ text, id }) => {
     update?.updateCollectionItem(pageId, id, {
       type: "text",
       text: value,
-    });
+    } as CollectionItem[string]);
     toggle.close();
   }, []);
 

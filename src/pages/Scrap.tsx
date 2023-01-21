@@ -2,6 +2,7 @@ import { FC, useCallback, useContext } from "react";
 import { Header } from "../components/Header";
 import { usePage } from "../components/Router/Router";
 import {
+  CollectionItem,
   CollectionStateContext,
   CollectionUpdateContext,
 } from "../useCollection";
@@ -53,7 +54,7 @@ export const Scrap: FC = () => {
     update?.addCollectionItem(id, {
       type: "url",
       page,
-    });
+    } as CollectionItem[string]);
   }, []);
 
   return (

@@ -1,5 +1,5 @@
 import { FC, useCallback, useContext } from "react";
-import { Collection, CollectionStateContext } from "../../useCollection";
+import {  CollectionStateContext } from "../../useCollection";
 import { usePageUpdate } from "../Router/Router";
 import { FolderItem } from "./FolderItem";
 
@@ -19,7 +19,7 @@ export const FolderList: FC = () => {
 
   return (
     <div className="flex flex-col pb-4">
-      {Object.entries(collections).map(([key, value]) => (
+      {Object.entries(collections).sort(([_, a], [__, b]) => b.order - a.order ).map(([key, value]) => (
         <FolderItem collection={value} onClick={handleClick(key)} />
       ))}
     </div>

@@ -19,18 +19,18 @@ type PageInfo = {
 };
 
 type Order = {
-  order: number
-}
+  order: number;
+};
 
 export type CollectionItemUrl = {
   type: "url";
   page: PageInfo;
-} & Order
+} & Order;
 
 export type CollectionItemText = {
   type: "text";
   text: string;
-} & Order
+} & Order;
 
 export type CollectionItem = Record<
   string,
@@ -42,31 +42,24 @@ export type Collection = Record<
   {
     title: string;
     items: CollectionItem;
+    order: number;
   }
 >;
 
-const tmpCollections: Collection = {
-  [uuidv4()]: {
-    title: "Svelte",
-    items: {
-      [uuidv4()]: {
-        type: "text",
-        text: "Svelte is a radical new approach to building user interfaces.",
-        order: 1,
-      },
-    },
-  },
-};
-
 export const useCollection = (
-  collections: Collection,
+  collections: Omit<Collection, "order">,
   setCollections: Dispatch<SetStateAction<Collection>>
 ) => {
   const addCollection = (collection: Collection[string]) => {
-    setCollections((prev) => ({
-      ...prev,
-      collection,
-    }));
+    setCollections((prev) => {
+      return {
+        ...prev,
+        [uuidv4()]: {
+          ...collection,
+          order: length,
+        },
+      };
+    });
   };
 
   const deleteCollection = (collectionId: string) => {
@@ -78,16 +71,20 @@ export const useCollection = (
 
   const addCollectionItem = (
     collectionId: string,
-    item: CollectionItem[string]
+    item: Omit<CollectionItem[string], "order">
   ) => {
     setCollections((prev) => {
+      const length = Object.keys(prev[collectionId].items).length;
       return {
         ...prev,
         [collectionId]: {
           ...prev[collectionId],
           items: {
             ...prev[collectionId].items,
-            [uuidv4()]: item,
+            [uuidv4()]: {
+              ...item,
+              order: length,
+            } as CollectionItem[string],
           },
         },
       };
@@ -139,7 +136,6 @@ export const CollectionContextProvider: FC<{
   if (!init) {
     if (typeof chrome !== "undefined") {
       chrome.storage.local.get(["collection"]).then((res) => {
-
         setCollections(res.collection);
       });
     }
